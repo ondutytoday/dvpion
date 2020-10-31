@@ -1,0 +1,40 @@
+PrintWriter pw;
+  Scanner sc;
+  
+  public void run() throws IOException{
+    sc = new Scanner(new File("input.txt")); 
+    String s = sc.nextLine();
+    int n = s.length();
+    int [] a = new int[n];
+	//Начало
+
+        for (int i = 0; i < n; i++) a[i] = i;
+        generate (1, n, n, a);
+
+	//Конец
+    pw = new PrintWriter(new File("output.txt"));
+    //pw.print(s);
+    pw.close();
+  }
+
+  void generate (int l, int r, int n, int[] a) {
+      
+      int i, v;
+      if (l==r) {
+          for (i = 0; i <n; i++) {
+              System.out.println(a[i] + " ");
+          }
+      }
+      else {
+          for (i = l; i < r; i++) {
+              v = a[l];
+              a[l] = a[i];
+              a[i] = v;
+              generate (l+1, r, n, a);
+              v = a[l];
+              a[l] = a[i];
+              a[i] = v;
+          }
+      }
+  }
+}

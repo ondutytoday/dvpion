@@ -1,0 +1,36 @@
+import java.util.*;
+import java.io.*;
+
+public class Main{
+  public static void main(String[] argv) throws IOException{
+    new Main().run();
+  }
+
+  PrintWriter pw;
+  Scanner sc;
+  
+  public void run() throws IOException{
+    ///////////////////////////////////////////////////////////////////////
+    sc = new Scanner(new File("input.txt"));
+    pw = new PrintWriter(new File("output.txt"));
+    ////////////////////////////////////////////////////////////////////////////
+    int N = sc.nextInt();
+    int [] t1 = {2, 3, 4,7,13};
+    int [] t2 = {1, 5, 6, 8, 9, 10, 11, 12};
+    int[] a = Arrays.copyOf(t1, 10000);
+    int[] b = Arrays.copyOf(t2, 20000);
+    int idx = 0;
+    for (int i = 5; i <N; i++) {
+        a [i] = b[i-1] + b[i-3];
+        int c = a[i-1], d = a [i];
+        for (int j = c+1; j < d; j++) {
+            Arrays.fill(b, t2.length+idx, t2.length+idx+1, j);
+            idx++;            
+        }
+    }
+    pw.println (a[N-1]);
+    pw.println (b[N-1]);
+    ///////////////////////////////////////////////////////////////////////////
+    pw.close();
+  }
+} 
